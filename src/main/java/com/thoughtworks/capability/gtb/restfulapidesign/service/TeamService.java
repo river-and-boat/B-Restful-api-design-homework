@@ -1,7 +1,7 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.service;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.TeamEntity;
-import com.thoughtworks.capability.gtb.restfulapidesign.repository.group.ITeamRepository;
+import com.thoughtworks.capability.gtb.restfulapidesign.repository.team.ITeamRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,15 +15,15 @@ public class TeamService {
         this.groupRepository = groupRepository;
     }
 
-    public List<TeamEntity> getGroups() {
-        return groupRepository.getGroups();
+    public List<TeamEntity> getTeams() {
+        return groupRepository.getTeams();
     }
 
-    public TeamEntity updateGroupName(String oldName, String newName) {
-        return groupRepository.updateGroupName(oldName, newName);
+    public TeamEntity updateTeamName(String oldName, String newName) {
+        return groupRepository.updateTeamName(oldName, newName);
     }
 
-    public TeamEntity saveGroup(TeamEntity teamEntity) {
-        return groupRepository.saveGroup(teamEntity);
+    public TeamEntity saveTeam(TeamEntity teamEntity) {
+        return groupRepository.saveTeam(teamEntity);
     }
 }

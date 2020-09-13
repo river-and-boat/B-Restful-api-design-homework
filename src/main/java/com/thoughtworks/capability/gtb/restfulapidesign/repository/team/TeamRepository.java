@@ -1,4 +1,4 @@
-package com.thoughtworks.capability.gtb.restfulapidesign.repository.group;
+package com.thoughtworks.capability.gtb.restfulapidesign.repository.team;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.TeamEntity;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.ExceptionEnum;
@@ -18,12 +18,12 @@ public class TeamRepository implements ITeamRepository {
         groupEntities = new LinkedList<>();
     }
 
-    public static List<TeamEntity> getGroupEntities() {
+    public static List<TeamEntity> getTeamEntities() {
         return groupEntities;
     }
 
     @Override
-    public TeamEntity updateGroupName(String oldName, String newName) {
+    public TeamEntity updateTeamName(String oldName, String newName) {
         Optional<TeamEntity> group = groupEntities.stream()
                 .filter(s -> s.getName().equals(oldName))
                 .findFirst();
@@ -35,12 +35,12 @@ public class TeamRepository implements ITeamRepository {
     }
 
     @Override
-    public List<TeamEntity> getGroups() {
+    public List<TeamEntity> getTeams() {
         return groupEntities;
     }
 
     @Override
-    public TeamEntity saveGroup(TeamEntity teamEntity) {
+    public TeamEntity saveTeam(TeamEntity teamEntity) {
         if (teamEntity.getName() == null || teamEntity.getName().equals("") ||
                 groupEntities.stream().anyMatch(s -> s.getName().equals(teamEntity.getName()))) {
             throw new TeamException(ExceptionEnum.SAVE_GROUP_WITH_ILLEGAL_NAME);

@@ -3,7 +3,7 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.TeamEntity;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.StudentEntity;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.TeamException;
-import com.thoughtworks.capability.gtb.restfulapidesign.repository.group.TeamRepository;
+import com.thoughtworks.capability.gtb.restfulapidesign.repository.team.TeamRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ class TeamServiceTest {
 
     @AfterEach
     void cleanUp() {
-        TeamRepository.getGroupEntities().clear();
+        TeamRepository.getTeamEntities().clear();
     }
 
     @Test
@@ -32,7 +32,7 @@ class TeamServiceTest {
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
         TeamException teamException = assertThrows(TeamException.class,
-                () -> teamService.saveGroup(teamEntityWithEmptyName),
+                () -> teamService.saveTeam(teamEntityWithEmptyName),
                 "Expected doThing() to throw, but it didn't");
         assertEquals("the team name is illegal",
                 teamException.getExceptionEnum().getErrorMessage());
@@ -44,7 +44,7 @@ class TeamServiceTest {
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
         TeamException teamException = assertThrows(TeamException.class,
-                () -> teamService.saveGroup(teamEntityWithNullName),
+                () -> teamService.saveTeam(teamEntityWithNullName),
                 "Expected doThing() to throw, but it didn't");
         assertEquals("the team name is illegal",
                 teamException.getExceptionEnum().getErrorMessage());
@@ -55,7 +55,7 @@ class TeamServiceTest {
         TeamEntity teamEntity = TeamEntity.builder().name("Team 1")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        TeamEntity savedEntity = teamService.saveGroup(teamEntity);
+        TeamEntity savedEntity = teamService.saveTeam(teamEntity);
         assertEquals(1, savedEntity.getId());
         assertEquals("Team 1", savedEntity.getName());
         assertEquals("test", savedEntity.getNote());
@@ -66,10 +66,10 @@ class TeamServiceTest {
         TeamEntity teamEntity = TeamEntity.builder().name("Team 1")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        teamService.saveGroup(teamEntity);
+        teamService.saveTeam(teamEntity);
 
         TeamException teamException = assertThrows(TeamException.class,
-                () -> teamService.saveGroup(teamEntity),
+                () -> teamService.saveTeam(teamEntity),
                 "Expected doThing() to throw, but it didn't");
         assertEquals("the team name is illegal",
                 teamException.getExceptionEnum().getErrorMessage());
@@ -87,11 +87,11 @@ class TeamServiceTest {
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
 
-        teamService.saveGroup(group1);
-        teamService.saveGroup(group2);
-        teamService.saveGroup(group3);
+        teamService.saveTeam(group1);
+        teamService.saveTeam(group2);
+        teamService.saveTeam(group3);
 
-        List<TeamEntity> groups = teamService.getGroups();
+        List<TeamEntity> groups = teamService.getTeams();
 
         assertEquals(3, groups.size());
         assertEquals(2, groups.get(1).getId());
@@ -103,13 +103,13 @@ class TeamServiceTest {
         TeamEntity group = TeamEntity.builder().name("Team 1")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        teamService.saveGroup(group);
+        teamService.saveTeam(group);
 
         String oldName = "Team 2";
         String newName = "Team 3";
 
         TeamException teamException = assertThrows(TeamException.class,
-                () -> teamService.updateGroupName(oldName, newName),
+                () -> teamService.updateTeamName(oldName, newName),
                 "Expected doThing() to throw, but it didn't");
         assertEquals("can not find a team to update",
                 teamException.getExceptionEnum().getErrorMessage());
@@ -120,12 +120,12 @@ class TeamServiceTest {
         TeamEntity group = TeamEntity.builder().name("Team 1")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        teamService.saveGroup(group);
+        teamService.saveTeam(group);
 
         String oldName = "Team 1";
         String newName = "Team 2";
 
-        TeamEntity teamEntity = teamService.updateGroupName(oldName, newName);
+        TeamEntity teamEntity = teamService.updateTeamName(oldName, newName);
         assertEquals("Team 2", teamEntity.getName());
     }
 }
