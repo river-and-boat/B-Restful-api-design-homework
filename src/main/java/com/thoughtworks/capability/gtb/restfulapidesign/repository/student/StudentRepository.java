@@ -24,6 +24,10 @@ public class StudentRepository implements IStudentRepository {
         studentEntities = new LinkedList<>();
     }
 
+    public static List<StudentEntity> getStudentEntities() {
+        return studentEntities;
+    }
+
     @Override
     public StudentEntity saveStudent(StudentEntity studentEntity) {
         studentEntity.setId(generateId());
@@ -84,6 +88,6 @@ public class StudentRepository implements IStudentRepository {
     }
 
     private synchronized String generateId() {
-        return ID_PREFIX + YEAR + SUBJECT_CODE + (studentEntities.size() + 1);
+        return ID_PREFIX + YEAR + SUBJECT_CODE + String.format("%03d", studentEntities.size() + 1);
     }
 }

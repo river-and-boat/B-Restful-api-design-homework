@@ -1,10 +1,11 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.entity;
 
-import com.sun.istack.internal.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
@@ -12,9 +13,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class StudentEntity {
     private String id;
-    @NotNull
+    @NotBlank
     private String name;
-    @NotNull
+    @NotBlank
     private Gender gender;
     private String note;
     private GroupEntity groupEntity;
