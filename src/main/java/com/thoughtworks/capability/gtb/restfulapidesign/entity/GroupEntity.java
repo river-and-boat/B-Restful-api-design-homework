@@ -1,19 +1,19 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Student {
+@NoArgsConstructor
+@Builder
+public class GroupEntity {
     private Integer id;
     private String name;
-    private gender gender;
-    private Group group;
-}
-
-enum gender {
-    MALE, FEMALE
+    private String note;
+    private List<StudentEntity> studentsEntity;
 }
