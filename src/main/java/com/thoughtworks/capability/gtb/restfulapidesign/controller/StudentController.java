@@ -6,6 +6,7 @@ import com.thoughtworks.capability.gtb.restfulapidesign.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +21,12 @@ public class StudentController {
 
     @PostMapping(value = "/students")
     @ResponseStatus(HttpStatus.CREATED)
-    public StudentEntity saveStudent(@RequestBody StudentEntity studentEntity) {
+    public StudentEntity saveStudent(@RequestBody @Valid StudentEntity studentEntity) {
         return studentService.saveStudent(studentEntity);
     }
 
     @DeleteMapping(value = "/students/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public StudentEntity deleteStudent(@PathVariable(value = "id") String id) {
         return studentService.deleteStudent(id);
     }
@@ -43,9 +44,9 @@ public class StudentController {
     }
 
     @PutMapping(value = "/students/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public StudentEntity updateStudentInfo(@PathVariable(value = "id") String id,
-                                           @RequestBody StudentEntity studentEntity) {
+                                           @RequestBody @Valid StudentEntity studentEntity) {
         return studentService.updateStudent(studentEntity, id);
     }
 }
