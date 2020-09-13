@@ -46,7 +46,7 @@ public class StudentController {
     @PutMapping(value = "/students/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public StudentEntity updateStudentInfo(@PathVariable(value = "id") String id,
-                                           @RequestBody @Valid StudentEntity studentEntity) {
+                                           @RequestBody StudentEntity studentEntity) {
         return studentService.updateStudent(studentEntity, id);
     }
 }

@@ -3,6 +3,7 @@ package com.thoughtworks.capability.gtb.restfulapidesign.handler;
 import com.thoughtworks.capability.gtb.restfulapidesign.common.ErrorResult;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.ExceptionEnum;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.StudentException;
+import com.thoughtworks.capability.gtb.restfulapidesign.exception.TeamException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,6 +19,14 @@ public class GtbExceptionHandler {
     public ResponseEntity studentException(StudentException studentException) {
         ErrorResult errorResult = new ErrorResult(studentException.getExceptionEnum().getCode(),
                 studentException.getExceptionEnum().getErrorMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(errorResult);
+    }
+
+    @ExceptionHandler(TeamException.class)
+    public ResponseEntity teamException(TeamException teamException) {
+        ErrorResult errorResult = new ErrorResult(teamException.getExceptionEnum().getCode(),
+                teamException.getExceptionEnum().getErrorMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(errorResult);
     }

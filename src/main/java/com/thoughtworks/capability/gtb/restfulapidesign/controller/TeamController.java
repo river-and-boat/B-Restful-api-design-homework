@@ -1,17 +1,16 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.controller;
 
+import com.thoughtworks.capability.gtb.restfulapidesign.domain.GroupNameVO;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.TeamEntity;
 import com.thoughtworks.capability.gtb.restfulapidesign.service.IntegrateService;
 import com.thoughtworks.capability.gtb.restfulapidesign.service.TeamService;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@Validated
 public class TeamController {
 
     private final TeamService teamService;
@@ -31,9 +30,8 @@ public class TeamController {
 
     @PutMapping("/group")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public TeamEntity updateTeamName(@RequestBody @NotNull String oldName,
-                                      @RequestBody @NotNull String newName) {
-        return teamService.updateTeamName(oldName, newName);
+    public TeamEntity updateTeamName(@RequestBody @Valid GroupNameVO groupNameVO) {
+        return teamService.updateTeamName(groupNameVO.getOldName(), groupNameVO.getNewName());
     }
 
     @PostMapping("/groups")
