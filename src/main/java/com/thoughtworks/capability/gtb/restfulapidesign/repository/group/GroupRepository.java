@@ -12,15 +12,19 @@ import java.util.Optional;
 @Repository
 public class GroupRepository implements IGroupRepository {
 
-    private static List<GroupEntity> groups;
+    private static List<GroupEntity> groupEntities;
 
     static {
-        groups = new LinkedList<>();
+        groupEntities = new LinkedList<>();
+    }
+
+    public static List<GroupEntity> getGroupEntities() {
+        return groupEntities;
     }
 
     @Override
     public GroupEntity updateGroupName(String oldName, String newName) {
-        Optional<GroupEntity> group = groups.stream()
+        Optional<GroupEntity> group = groupEntities.stream()
                 .filter(s -> s.getName().equals(oldName))
                 .findFirst();
         if (group.isPresent()) {
@@ -32,16 +36,21 @@ public class GroupRepository implements IGroupRepository {
 
     @Override
     public List<GroupEntity> getGroups() {
-        return groups;
+        return groupEntities;
     }
 
     @Override
     public GroupEntity saveGroup(GroupEntity groupEntity) {
         if (groupEntity.getName() == null || groupEntity.getName().equals("") ||
-                groups.stream().anyMatch(s->s.getName().equals(groupEntity.getName()))) {
+                groupEntities.stream().anyMatch(s -> s.getName().equals(groupEntity.getName()))) {
             throw new GroupException(ExceptionEnum.SAVE_GROUP_WITH_ILLEGAL_NAME);
         }
-        groups.add(groupEntity);
+        groupEntity.setId(generateGroupId());
+        groupEntities.add(groupEntity);
         return groupEntity;
+    }
+
+    private synchronized Integer generateGroupId() {
+        return (groupEntities.size() + 1);
     }
 }

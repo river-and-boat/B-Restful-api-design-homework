@@ -22,4 +22,8 @@ public class GroupService {
     public GroupEntity updateGroupName(String oldName, String newName) {
         return groupRepository.updateGroupName(oldName, newName);
     }
+
+    public GroupEntity saveGroup(GroupEntity groupEntity) {
+        return groupRepository.saveGroup(groupEntity);
+    }
 }
