@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GroupEntity {
+public class TeamEntity {
     private Integer id;
     private String name;
     private String note;

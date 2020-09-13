@@ -1,10 +1,10 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.exception;
 
-public class GroupException extends RuntimeException {
+public class TeamException extends RuntimeException {
 
     private ExceptionEnum exceptionEnum;
 
-    public GroupException(ExceptionEnum exceptionEnum) {
+    public TeamException(ExceptionEnum exceptionEnum) {
         this.exceptionEnum = exceptionEnum;
     }
 

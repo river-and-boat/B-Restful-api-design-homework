@@ -18,5 +18,5 @@ public class StudentEntity {
     @NotBlank
     private Gender gender;
     private String note;
-    private GroupEntity groupEntity;
+    private TeamEntity teamEntity;
 }

@@ -1,9 +1,9 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.service;
 
-import com.thoughtworks.capability.gtb.restfulapidesign.entity.GroupEntity;
+import com.thoughtworks.capability.gtb.restfulapidesign.entity.TeamEntity;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.StudentEntity;
-import com.thoughtworks.capability.gtb.restfulapidesign.exception.GroupException;
-import com.thoughtworks.capability.gtb.restfulapidesign.repository.group.GroupRepository;
+import com.thoughtworks.capability.gtb.restfulapidesign.exception.TeamException;
+import com.thoughtworks.capability.gtb.restfulapidesign.repository.group.TeamRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,46 +16,46 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-class GroupServiceTest {
+class TeamServiceTest {
 
     @Autowired
-    private GroupService groupService;
+    private TeamService teamService;
 
     @AfterEach
     void cleanUp() {
-        GroupRepository.getGroupEntities().clear();
+        TeamRepository.getGroupEntities().clear();
     }
 
     @Test
     public void testSaveGroupWithEmptyName() {
-        GroupEntity groupEntityWithEmptyName = GroupEntity.builder().name("")
+        TeamEntity teamEntityWithEmptyName = TeamEntity.builder().name("")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        GroupException groupException = assertThrows(GroupException.class,
-                () -> groupService.saveGroup(groupEntityWithEmptyName),
+        TeamException teamException = assertThrows(TeamException.class,
+                () -> teamService.saveGroup(teamEntityWithEmptyName),
                 "Expected doThing() to throw, but it didn't");
-        assertEquals("the group name is illegal",
-                groupException.getExceptionEnum().getErrorMessage());
+        assertEquals("the team name is illegal",
+                teamException.getExceptionEnum().getErrorMessage());
     }
 
     @Test
     public void testSaveGroupWithNullName() {
-        GroupEntity groupEntityWithNullName = GroupEntity.builder()
+        TeamEntity teamEntityWithNullName = TeamEntity.builder()
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        GroupException groupException = assertThrows(GroupException.class,
-                () -> groupService.saveGroup(groupEntityWithNullName),
+        TeamException teamException = assertThrows(TeamException.class,
+                () -> teamService.saveGroup(teamEntityWithNullName),
                 "Expected doThing() to throw, but it didn't");
-        assertEquals("the group name is illegal",
-                groupException.getExceptionEnum().getErrorMessage());
+        assertEquals("the team name is illegal",
+                teamException.getExceptionEnum().getErrorMessage());
     }
 
     @Test
     public void testSaveGroup() {
-        GroupEntity groupEntity = GroupEntity.builder().name("Team 1")
+        TeamEntity teamEntity = TeamEntity.builder().name("Team 1")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        GroupEntity savedEntity = groupService.saveGroup(groupEntity);
+        TeamEntity savedEntity = teamService.saveGroup(teamEntity);
         assertEquals(1, savedEntity.getId());
         assertEquals("Team 1", savedEntity.getName());
         assertEquals("test", savedEntity.getNote());
@@ -63,35 +63,35 @@ class GroupServiceTest {
 
     @Test
     public void testRepeatGroupName() {
-        GroupEntity groupEntity = GroupEntity.builder().name("Team 1")
+        TeamEntity teamEntity = TeamEntity.builder().name("Team 1")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        groupService.saveGroup(groupEntity);
+        teamService.saveGroup(teamEntity);
 
-        GroupException groupException = assertThrows(GroupException.class,
-                () -> groupService.saveGroup(groupEntity),
+        TeamException teamException = assertThrows(TeamException.class,
+                () -> teamService.saveGroup(teamEntity),
                 "Expected doThing() to throw, but it didn't");
-        assertEquals("the group name is illegal",
-                groupException.getExceptionEnum().getErrorMessage());
+        assertEquals("the team name is illegal",
+                teamException.getExceptionEnum().getErrorMessage());
     }
 
     @Test
     public void testGetAllGroups() {
-        GroupEntity group1 = GroupEntity.builder().name("Team 1")
+        TeamEntity group1 = TeamEntity.builder().name("Team 1")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        GroupEntity group2 = GroupEntity.builder().name("Team 2")
+        TeamEntity group2 = TeamEntity.builder().name("Team 2")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        GroupEntity group3 = GroupEntity.builder().name("Team 3")
+        TeamEntity group3 = TeamEntity.builder().name("Team 3")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
 
-        groupService.saveGroup(group1);
-        groupService.saveGroup(group2);
-        groupService.saveGroup(group3);
+        teamService.saveGroup(group1);
+        teamService.saveGroup(group2);
+        teamService.saveGroup(group3);
 
-        List<GroupEntity> groups = groupService.getGroups();
+        List<TeamEntity> groups = teamService.getGroups();
 
         assertEquals(3, groups.size());
         assertEquals(2, groups.get(1).getId());
@@ -100,32 +100,32 @@ class GroupServiceTest {
 
     @Test
     public void testUpdateNotExistGroupName() {
-        GroupEntity group = GroupEntity.builder().name("Team 1")
+        TeamEntity group = TeamEntity.builder().name("Team 1")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        groupService.saveGroup(group);
+        teamService.saveGroup(group);
 
         String oldName = "Team 2";
         String newName = "Team 3";
 
-        GroupException groupException = assertThrows(GroupException.class,
-                () -> groupService.updateGroupName(oldName, newName),
+        TeamException teamException = assertThrows(TeamException.class,
+                () -> teamService.updateGroupName(oldName, newName),
                 "Expected doThing() to throw, but it didn't");
-        assertEquals("can not find a group to update",
-                groupException.getExceptionEnum().getErrorMessage());
+        assertEquals("can not find a team to update",
+                teamException.getExceptionEnum().getErrorMessage());
     }
 
     @Test
     public void testUpdateGroupName() {
-        GroupEntity group = GroupEntity.builder().name("Team 1")
+        TeamEntity group = TeamEntity.builder().name("Team 1")
                 .studentsEntity(new LinkedList<StudentEntity>())
                 .note("test").build();
-        groupService.saveGroup(group);
+        teamService.saveGroup(group);
 
         String oldName = "Team 1";
         String newName = "Team 2";
 
-        GroupEntity groupEntity = groupService.updateGroupName(oldName, newName);
-        assertEquals("Team 2", groupEntity.getName());
+        TeamEntity teamEntity = teamService.updateGroupName(oldName, newName);
+        assertEquals("Team 2", teamEntity.getName());
     }
 }
