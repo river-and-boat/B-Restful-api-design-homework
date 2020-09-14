@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/v1")
 public class TeamController {
 
     private final TeamService teamService;

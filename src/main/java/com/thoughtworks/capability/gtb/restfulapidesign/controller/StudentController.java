@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/v1")
 public class StudentController {
 
     private final StudentService studentService;
