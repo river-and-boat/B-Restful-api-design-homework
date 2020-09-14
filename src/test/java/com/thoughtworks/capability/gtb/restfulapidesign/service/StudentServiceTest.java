@@ -3,7 +3,7 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.Gender;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.StudentEntity;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.StudentException;
-import com.thoughtworks.capability.gtb.restfulapidesign.repository.student.StudentRepository;
+import com.thoughtworks.capability.gtb.restfulapidesign.repository.student.StudentRepositoryImp;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class StudentServiceTest {
 
     @AfterEach
     void cleanUp() {
-        StudentRepository.getStudentEntities().clear();
+        StudentRepositoryImp.getStudentEntities().clear();
     }
 
     @Test

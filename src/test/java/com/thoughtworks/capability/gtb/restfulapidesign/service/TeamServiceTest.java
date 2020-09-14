@@ -3,7 +3,7 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.TeamEntity;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.StudentEntity;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.TeamException;
-import com.thoughtworks.capability.gtb.restfulapidesign.repository.team.TeamRepository;
+import com.thoughtworks.capability.gtb.restfulapidesign.repository.team.TeamRepositoryImp;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ class TeamServiceTest {
 
     @AfterEach
     void cleanUp() {
-        TeamRepository.getTeamEntities().clear();
+        TeamRepositoryImp.getTeamEntities().clear();
     }
 
     @Test

@@ -3,8 +3,8 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.Gender;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.StudentEntity;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.TeamEntity;
-import com.thoughtworks.capability.gtb.restfulapidesign.repository.student.StudentRepository;
-import com.thoughtworks.capability.gtb.restfulapidesign.repository.team.TeamRepository;
+import com.thoughtworks.capability.gtb.restfulapidesign.repository.student.StudentRepositoryImp;
+import com.thoughtworks.capability.gtb.restfulapidesign.repository.team.TeamRepositoryImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,8 @@ class IntegrateServiceTest {
 
     @BeforeEach
     void init() {
-        StudentRepository.getStudentEntities().clear();
-        TeamRepository.getTeamEntities().clear();
+        StudentRepositoryImp.getStudentEntities().clear();
+        TeamRepositoryImp.getTeamEntities().clear();
         List<StudentEntity> students = new ArrayList<StudentEntity>() {
             {
                 add(StudentEntity.builder().name("廖浚斌").gender(Gender.MALE).build());

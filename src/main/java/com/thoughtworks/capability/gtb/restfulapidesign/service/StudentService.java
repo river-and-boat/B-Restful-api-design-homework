@@ -2,7 +2,7 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.Gender;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.StudentEntity;
-import com.thoughtworks.capability.gtb.restfulapidesign.repository.student.IStudentRepository;
+import com.thoughtworks.capability.gtb.restfulapidesign.repository.student.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +11,9 @@ import java.util.Optional;
 @Service
 public class StudentService {
 
-    private final IStudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
-    public StudentService(IStudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
