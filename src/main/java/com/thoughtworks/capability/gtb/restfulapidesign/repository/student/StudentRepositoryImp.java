@@ -70,12 +70,15 @@ public class StudentRepositoryImp implements StudentRepository {
         Optional<StudentEntity> student = getStudentByIdCommon(id);
         if (student.isPresent()) {
             StudentEntity studentBeEdited = student.get();
-            studentBeEdited.setName(studentEntity.getName() == null ?
-                    studentBeEdited.getName() : studentEntity.getName());
-            studentBeEdited.setGender(studentEntity.getGender() == null ?
-                    studentBeEdited.getGender() : studentEntity.getGender());
-            studentBeEdited.setNote(studentEntity.getNote() == null ?
-                    studentBeEdited.getNote() : studentEntity.getNote());
+            String name = studentEntity.getName() == null ?
+                    studentBeEdited.getName() : studentEntity.getName();
+            Gender gender = studentEntity.getGender() == null ?
+                    studentBeEdited.getGender() : studentEntity.getGender();
+            String note = studentEntity.getNote() == null ?
+                    studentBeEdited.getNote() : studentEntity.getNote();
+            studentBeEdited.setName(name);
+            studentBeEdited.setGender(gender);
+            studentBeEdited.setNote(note);
             return studentBeEdited;
         }
         throw new StudentException(ExceptionEnum.UPDATE_STUDENT_NOT_EXIST);

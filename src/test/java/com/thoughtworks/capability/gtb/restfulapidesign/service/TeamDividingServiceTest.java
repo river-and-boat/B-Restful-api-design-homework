@@ -16,13 +16,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class IntegrateServiceTest {
+class TeamDividingServiceTest {
 
     @Autowired
     private StudentService studentService;
 
     @Autowired
-    private IntegrateService integrateService;
+    private TeamDividingService teamDividingService;
 
     @Autowired
     private TeamService teamService;
@@ -80,7 +80,7 @@ class IntegrateServiceTest {
 
     @Test
     public void testDivideTeamsRandomly() {
-        integrateService.randomTeamingSort();
+        teamDividingService.randomTeamingSort();
         List<TeamEntity> teams = teamService.getTeams();
 
         assertEquals(6, teams.size());

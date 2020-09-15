@@ -2,6 +2,8 @@ package com.thoughtworks.capability.gtb.restfulapidesign.service;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.StudentEntity;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.TeamEntity;
+import com.thoughtworks.capability.gtb.restfulapidesign.repository.team.TeamRepository;
+import com.thoughtworks.capability.gtb.restfulapidesign.repository.team.TeamRepositoryImp;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -10,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class IntegrateService {
+public class TeamDividingService {
 
     private final static String TEAM_NAME_PREFIX = "Team ";
     private final static Integer TEAM_NUMBER = 6;
@@ -18,13 +20,14 @@ public class IntegrateService {
     private final StudentService studentService;
     private final TeamService teamService;
 
-    public IntegrateService(StudentService studentService,
-                            TeamService teamService) {
+    public TeamDividingService(StudentService studentService,
+                               TeamService teamService) {
         this.studentService = studentService;
         this.teamService = teamService;
     }
 
     public void randomTeamingSort() {
+        teamService.getTeams().clear();
         List<StudentEntity> allStudents = studentService.getStudents(Optional.empty());
         Collections.shuffle(allStudents);
         int studentsNumber = allStudents.size();

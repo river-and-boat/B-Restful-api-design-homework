@@ -2,7 +2,7 @@ package com.thoughtworks.capability.gtb.restfulapidesign.controller;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.domain.GroupNameVO;
 import com.thoughtworks.capability.gtb.restfulapidesign.entity.TeamEntity;
-import com.thoughtworks.capability.gtb.restfulapidesign.service.IntegrateService;
+import com.thoughtworks.capability.gtb.restfulapidesign.service.TeamDividingService;
 import com.thoughtworks.capability.gtb.restfulapidesign.service.TeamService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +16,11 @@ public class TeamController {
 
     private final TeamService teamService;
 
-    private final IntegrateService integrateService;
+    private final TeamDividingService teamDividingService;
 
-    public TeamController(TeamService teamService, IntegrateService integrateService) {
+    public TeamController(TeamService teamService, TeamDividingService teamDividingService) {
         this.teamService = teamService;
-        this.integrateService = integrateService;
+        this.teamDividingService = teamDividingService;
     }
 
     @GetMapping("/groups")
@@ -38,6 +38,6 @@ public class TeamController {
     @PostMapping("/groups")
     @ResponseStatus(HttpStatus.CREATED)
     public void randomCreateTeams() {
-        integrateService.randomTeamingSort();
+        teamDividingService.randomTeamingSort();
     }
 }
